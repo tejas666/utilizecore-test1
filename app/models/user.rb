@@ -1,5 +1,8 @@
 class User < ApplicationRecord
+	has_secure_password
 	validates :name, presence: true
+	validates :email, uniqueness: { message: "is already taken" }
+	validates :password, presence: true, length: { minimum: 6 }
 
 	has_one :address
 	has_many :send_parcels, foreign_key: :sender_id, class_name: 'Parcel'

@@ -1,5 +1,7 @@
 class ServiceTypesController < ApplicationController
   before_action :set_service_type, only: %i[ show edit update destroy ]
+  before_action :require_login, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+
 
   # GET /service_types or /service_types.json
   def index
@@ -65,5 +67,12 @@ class ServiceTypesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def service_type_params
       params.require(:service_type).permit(:name)
+    end
+
+
+    def require_login
+      unless current_user
+        redirect_to root_path, alert: 'Please log in to access this page.'
+      end
     end
 end

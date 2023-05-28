@@ -1,5 +1,9 @@
 class ParcelsController < ApplicationController
   before_action :set_parcel, only: %i[ show edit update destroy ]
+  before_action :require_login, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+
+  # before_action :authenticate_user!
+  # before_action :authorize_admin, only: [:new, :create]
 
   # GET /parcels or /parcels.json
   def index
@@ -75,5 +79,16 @@ class ParcelsController < ApplicationController
       params.require(:parcel).permit(:weight, :status, :service_type_id,
                                      :payment_mode, :sender_id, :receiver_id,
                                      :cost)
+    end
+
+    # def authorize_admin
+    #   redirect_to root_path, alert: 'You are not authorized to perform this action.' unless current_user.admin?
+    # end
+
+
+    def require_login
+      unless current_user
+        redirect_to root_path, alert: 'Please log in to access this page.'
+      end
     end
 end

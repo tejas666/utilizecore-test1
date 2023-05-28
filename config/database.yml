@@ -1,9 +1,9 @@
 development:
+  database: <%= ENV.fetch("database_name") %>
+  username: <%= ENV.fetch("database_username") {ENV.fetch("USER")} %>
+  password: <%= ENV.fetch("database_password") {Rails.application.credentials.database[:password]} %>
+  host: <%= ENV.fetch("database_host") {'localhost'} %>
+  port: <%= ENV.fetch("database_port") {5432} %>
+  
   adapter: postgresql
   encoding: unicode
-  database: courier_service_development
-  username: postgres
-  password: postgres
-  host: localhost
-  port: 5432
-  pool: 5

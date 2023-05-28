@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Parcels') do |sheet|
+  sheet.add_row ['Tracking Number', 'Sender Name', 'Sender Email', 'Receiver Name', 'Receiver Email', 'Status']
+  @parcels.each do |parcel|
+    sheet.add_row [parcel.tracking_number, parcel.sender.name, parcel.sender.email, parcel.receiver.name, parcel.receiver.email, parcel.status]
+  end
+end

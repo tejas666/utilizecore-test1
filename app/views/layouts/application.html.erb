@@ -9,17 +9,24 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  <%= current_user %>
 
   <body>
-
+   <% if current_user %>
     <ul>
-      <li><a href="/">Home</a></li>
+      <li><a href="/parcels">Home</a></li>
       <li><a href="/search">Search Orders</a></li>
       <li><a href="/parcels">Parcels</a></li>
       <li><a href="/users">Manage Users</a></li>
       <li><a href="/service_types">Service Types</a></li>
     </ul>
+    <%= link_to 'View Report', admin_reports_path %>
+    <%= link_to 'Log Out', logout_user_path, method: :delete %>
+
+     <% end %>
+    <%= flash[:notice] %>
 
     <%= yield %>
   </body>
+  
 </html>
